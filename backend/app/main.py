@@ -1,0 +1,15 @@
+from fastapi import FastAPI
+from app.routes import predict
+from fastapi.middleware.cors import CORSMiddleware
+app=FastAPI(title="Spam Classifier API", description="AI powered spam Detection",version="1.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+@app.get("/", tags=["Home"])
+def home():
+    return {"message":"API is running."}
+app.include_router(predict.router)
