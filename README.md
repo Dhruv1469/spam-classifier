@@ -1,18 +1,19 @@
-# 📩 Spam Message Classifier (AI + FastAPI + Docker)
+# 📩 Spam Message Classifier (AI + FastAPI + Docker + Nginx)
 
 A full-stack Machine Learning web application that classifies messages as **Spam** or **Not Spam** with a confidence score.
-Built using **FastAPI**, **Scikit-learn**, and deployed using **Docker & Docker Compose**.
+This project is built using **FastAPI**, **Scikit-learn**, and deployed using **Docker, Docker Compose, and Nginx (Reverse Proxy)**.
 
 ---
 
 ## 🚀 Features
 
-- ✅ Spam vs Not Spam classification
-- ✅ Confidence score (% probability)
-- ✅ Clean and modern UI
-- ✅ REST API with FastAPI
-- ✅ Fully Dockerized (Backend + Frontend)
-- ✅ Production-ready structure
+* ✅ Spam vs Not Spam classification
+* ✅ Confidence score (% probability)
+* ✅ Modern responsive UI
+* ✅ REST API with FastAPI
+* ✅ Fully Dockerized (Frontend + Backend)
+* ✅ Nginx Reverse Proxy for API routing
+* ✅ Production-ready architecture
 
 ---
 
@@ -20,28 +21,28 @@ Built using **FastAPI**, **Scikit-learn**, and deployed using **Docker & Docker 
 
 ### 🔹 Backend
 
-- Python
-- FastAPI
-- Scikit-learn
-- NLTK
+* Python
+* FastAPI
+* Scikit-learn
+* NLTK
 
 ### 🔹 Frontend
 
-- HTML
-- CSS
-- JavaScript
+* HTML
+* CSS
+* JavaScript
 
-### 🔹 DevOps
+### 🔹 DevOps / Deployment
 
-- Docker
-- Docker Compose
-- Nginx
+* Docker
+* Docker Compose
+* Nginx (Reverse Proxy)
 
 ---
 
 ## 📁 Project Structure
 
-```
+```id="b2n6kz"
 spam-classifier/
 │
 ├── backend/
@@ -57,6 +58,7 @@ spam-classifier/
 │   ├── index.html
 │   ├── style.css
 │   ├── app.js
+│   ├── nginx.conf
 │   └── Dockerfile
 │
 └── docker-compose.yml
@@ -68,35 +70,49 @@ spam-classifier/
 
 ### 🔹 Prerequisites
 
-- Docker installed
-- Docker Compose installed
+* Docker installed
+* Docker Compose installed
 
 ---
 
 ## ▶️ Run the Project
 
-```bash
+```bash id="1c2x42"
 docker-compose up --build
 ```
 
 ---
 
-## 🌐 Access the App
+## 🌐 Access the Application
 
 | Service          | URL                        |
 | ---------------- | -------------------------- |
-| Frontend         | http://localhost:3000      |
+| Frontend (Nginx) | http://localhost:3000      |
 | Backend API Docs | http://localhost:8000/docs |
 
 ---
 
-## 🧪 API Endpoint
+## 🔄 Architecture (Production Style)
+
+```id="w3nq3q"
+Browser
+   ↓
+Nginx (Frontend Container - Reverse Proxy)
+   ↓
+FastAPI Backend (API)
+   ↓
+Machine Learning Model
+```
+
+---
+
+## 🔌 API Endpoint
 
 ### POST `/predict`
 
-#### Request Body
+#### Request
 
-```json
+```json id="f04z6p"
 {
   "message": "Congratulations! You won a free iPhone"
 }
@@ -104,7 +120,7 @@ docker-compose up --build
 
 #### Response
 
-```json
+```json id="2v7v9c"
 {
   "prediction": "Spam",
   "confidence": 92.4
@@ -116,59 +132,65 @@ docker-compose up --build
 ## 🧠 How It Works
 
 1. User enters a message in the UI
-2. Frontend sends request to FastAPI backend
-3. Backend:
-   - Cleans text using NLP
-   - Converts text to vectors
-   - Uses trained ML model to predict
+2. Frontend sends request to `/predict`
+3. Nginx forwards request to backend (`FastAPI`)
+4. Backend:
 
-4. Returns:
-   - Prediction (Spam / Not Spam)
-   - Confidence score
+   * Cleans text using NLP
+   * Converts text using TF-IDF vectorizer
+   * Uses trained ML model for prediction
+5. Returns:
 
----
-
-## 📊 Model Details
-
-- Algorithm: Naive Bayes / Logistic Regression
-- Vectorization: TF-IDF
-- NLP preprocessing using NLTK
-- Stopword removal and text cleaning
+   * Prediction (Spam / Not Spam)
+   * Confidence score
 
 ---
 
 ## ⚠️ Common Issues
 
+### ❌ Infinite "Checking..."
+
+* Ensure Nginx proxy is configured correctly
+* Check `nginx.conf` routing
+
+---
+
 ### ❌ API not working
 
-- Check if backend container is running
-- Ensure correct API URL (`http://backend:8000/predict`)
+* Ensure backend container is running
+* Check logs:
+
+```bash id="gq03f0"
+docker logs spam-backend
+```
+
+---
 
 ### ❌ CORS Error
 
-- Make sure CORS middleware is enabled in FastAPI
+* Ensure CORS middleware is enabled in FastAPI
 
 ---
 
 ## 🚀 Future Improvements
 
-- 🔐 User authentication (login/signup)
-- 📊 Dashboard for analytics
-- ☁️ Cloud deployment (AWS / Render)
-- 📦 Save predictions to database
-- 📱 Mobile responsive UI
+* 🔐 User Authentication (JWT)
+* 📊 Analytics Dashboard
+* 🗄️ Database integration (MongoDB/PostgreSQL)
+* ☁️ Cloud Deployment (AWS / Render)
+* 📱 Mobile responsiveness improvements
 
 ---
 
 ## 👨‍💻 Author
 
-Dhruv Sharma
+**Dhruv Sharma**
 
 ---
 
-## ⭐ Contribute
+## ⭐ Resume Highlight
 
-Feel free to fork this project and improve it!
+> Built a full-stack AI-based Spam Classifier using FastAPI and Scikit-learn, deployed via Docker with Nginx as a reverse proxy, implementing a microservices architecture with real-time predictions and confidence scoring.
 
 ---
 
